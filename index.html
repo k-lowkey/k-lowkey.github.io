@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Klowkey Script</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    padding: 20px;
+    background: radial-gradient(circle at top, #312e81, #020617 70%);
+    overflow: hidden;
+}
+
+/* SAO NHỎ */
+.star-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(1px 1px at 20% 30%, white, transparent),
+        radial-gradient(1px 1px at 70% 20%, white, transparent),
+        radial-gradient(2px 2px at 40% 80%, #c7d2fe, transparent),
+        radial-gradient(1px 1px at 80% 60%, white, transparent),
+        radial-gradient(2px 2px at 10% 70%, #a5b4fc, transparent);
+    opacity: 0.7;
+    z-index: 0;
+}
+
+/* SAO BĂNG */
+.meteor {
+    position: fixed;
+    top: -50px;
+    width: 2px;
+    height: 120px;
+    background: linear-gradient(white, transparent);
+    opacity: 0.8;
+    animation: fall linear forwards;
+    z-index: 1;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-100px) translateX(0);
+    }
+    to {
+        transform: translateY(110vh) translateX(300px);
+    }
+}
+
+/* NỘI DUNG */
+.content {
+    position: relative;
+    z-index: 2;
+}
+
+.box {
+    background: rgba(30,41,59,0.85);
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 25px rgba(99,102,241,0.4);
+}
+
+textarea, input {
+    width: 100%;
+    background: #020617;
+    color: #22c55e;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    background: #6366f1;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="star-bg"></div>
+
+<div class="content">
+<h2>📜 SCRIPT</h2>
+<div class="box">
+<textarea id="script" rows="4" readonly>
+loadstring(game:HttpGet("https://raw.githubusercontent.com/hnc-roblox/HNC_Hub.Super.Chest/refs/heads/main/ChestBypass.lua"))()
+</textarea>
+<button onclick="copy('script')">📋 Sao chép script</button>
+</div>
+
+<h2>🔗 LINK ỨNG DỤNG</h2>
+<div class="box">
+<input id="link" readonly value="https://www.mediafire.com/file/j229oag2mehfvoo/FluxusZ_VNG_64.apk/file?dkey=kh1hhigze4y&r=659">
+<button onclick="copy('link')">📋 Sao chép link</button>
+</div>
+</div>
+
+<script>
+function copy(id){
+    let el = document.getElementById(id);
+    el.select();
+    document.execCommand("copy");
+    alert("Đã sao chép!");
+}
+
+// TẠO SAO BĂNG
+function createMeteor() {
+    const m = document.createElement("div");
+    m.className = "meteor";
+    m.style.left = Math.random() * window.innerWidth + "px";
+    m.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+    document.body.appendChild(m);
+
+    setTimeout(() => {
+        m.remove();
+    }, 3000);
+}
+
+setInterval(createMeteor, 400);
+</script>
+
+</body>
+</html>
