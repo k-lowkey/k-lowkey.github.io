@@ -95,25 +95,6 @@ button {
     cursor: pointer;
 }
 
-/* MÀN NHẬP KEY */
-#lock {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(8px);
-    background: rgba(2,6,23,0.9);
-    z-index: 9999;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-#lock.unlock {
-    opacity: 0;
-    transform: scale(1.1);
-    pointer-events: none;
-}
-
 /* KHUNG LIÊN HỆ */
 .contact-box {
     position: fixed;
@@ -158,22 +139,11 @@ button {
     font-size: 12px;
     color: #ccc;
     margin-top: 8px;
-    display: none;
 }
 </style>
 </head>
 
 <body>
-
-<!-- MÀN NHẬP KEY -->
-<div id="lock">
-  <div class="box" style="max-width:320px;width:90%;">
-    <h3>🔐 Nhập KEY</h3>
-    <input id="keyInput" placeholder="Nhập key">
-    <button onclick="checkKey()">Mở khóa</button>
-    <p id="msg" style="color:#f87171"></p>
-  </div>
-</div>
 
 <div class="star-bg"></div>
 
@@ -218,18 +188,6 @@ function copyText(btn){
     el.select();
     document.execCommand("copy");
     alert("Đã sao chép!");
-}
-
-/* CHECK KEY + HIỆU ỨNG */
-const REAL_KEY = "traigaidepthivao";
-function checkKey(){
-    if(keyInput.value === REAL_KEY){
-        lock.classList.add("unlock");
-        document.getElementById("scamNote").style.display = "block";
-        setTimeout(() => lock.style.display = "none", 800);
-    } else {
-        msg.innerText = "Sai key rồi 😢";
-    }
 }
 
 /* SAO BĂNG BAY CHÉO */
