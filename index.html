@@ -87,6 +87,24 @@ button {
 
 <body>
 
+<!-- 🔐 MÀN HÌNH KEY -->
+<div id="lock" style="
+position:fixed;
+inset:0;
+background:radial-gradient(circle at top, #312e81, #020617 70%);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+">
+  <div class="box" style="max-width:320px;width:90%;">
+    <h3>🔐 Nhập KEY</h3>
+    <input id="keyInput" placeholder="Nhập key ở đây">
+    <button onclick="checkKey()">Mở khóa</button>
+    <p id="msg" style="color:#f87171;margin-top:8px;"></p>
+  </div>
+</div>
+
 <div class="star-bg"></div>
 
 <div class="content">
@@ -113,21 +131,29 @@ function copy(id){
     alert("Đã sao chép!");
 }
 
-// TẠO SAO BĂNG
+// SAO BĂNG
 function createMeteor() {
     const m = document.createElement("div");
     m.className = "meteor";
     m.style.left = Math.random() * window.innerWidth + "px";
     m.style.animationDuration = (1.5 + Math.random() * 2) + "s";
     document.body.appendChild(m);
-
-    setTimeout(() => {
-        m.remove();
-    }, 3000);
+    setTimeout(() => m.remove(), 3000);
 }
-
 setInterval(createMeteor, 400);
+
+// 🔑 CHECK KEY
+const REAL_KEY = "traigaidepthivao";
+function checkKey(){
+    const input = document.getElementById("keyInput").value;
+    if(input === REAL_KEY){
+        document.getElementById("lock").style.display = "none";
+    } else {
+        document.getElementById("msg").innerText = "Sai key rồi 😢";
+    }
+}
 </script>
 
 </body>
+    
 </html>
