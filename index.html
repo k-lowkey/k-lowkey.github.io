@@ -2,13 +2,10 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.9">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Klowkey Script</title>
 
 <style>
-/* ===== THU NHỎ TRANG ===== */
-html { zoom: 0.9; }
-
 body {
     margin: 0;
     min-height: 100vh;
@@ -19,13 +16,13 @@ body {
     transition: background 2s ease;
 }
 
-/* ===== NỀN THEO GIỜ ===== */
+/* NỀN THEO GIỜ */
 body.morning { background: linear-gradient(120deg, #1e3a8a, #38bdf8); }
 body.afternoon { background: linear-gradient(120deg, #0f172a, #4f46e5); }
 body.evening { background: linear-gradient(120deg, #020617, #1e1b4b); }
 body.night { background: linear-gradient(120deg, #020617, #000000); }
 
-/* ===== SAO NHỎ + NHẤP NHÁY ===== */
+/* SAO NHỎ NHẤP NHÁY */
 .star-bg {
     position: fixed;
     inset: 0;
@@ -45,27 +42,29 @@ body.night { background: linear-gradient(120deg, #020617, #000000); }
     to { opacity: 0.85; }
 }
 
-/* ===== SAO BĂNG ===== */
+/* SAO BĂNG BAY CHÉO VỚI VỆT TÍM NHẠT */
 .meteor {
     position: fixed;
     top: -50px;
     width: 2px;
     height: 120px;
-    background: linear-gradient(white, transparent);
+    background: linear-gradient(to bottom, rgba(200,180,255,0.8), transparent); /* màu tím nhạt */
+    transform: rotate(45deg); /* bay chéo */
     animation: fall linear forwards;
     z-index: 1;
 }
 
 @keyframes fall {
-    from { transform: translateY(-100px) translateX(0); }
-    to { transform: translateY(110vh) translateX(300px); }
+    from { transform: translateY(-100px) translateX(0) rotate(45deg); }
+    to { transform: translateY(110vh) translateX(300px) rotate(45deg); }
 }
 
-/* ===== NỘI DUNG ===== */
+/* NỘI DUNG */
 .content {
     position: relative;
     z-index: 2;
     max-width: 600px;
+    margin: 0 auto;
 }
 
 .box {
@@ -96,7 +95,7 @@ button {
     cursor: pointer;
 }
 
-/* ===== MÀN NHẬP KEY ===== */
+/* MÀN NHẬP KEY */
 #lock {
     position: fixed;
     inset: 0;
@@ -115,7 +114,7 @@ button {
     pointer-events: none;
 }
 
-/* ===== KHUNG LIÊN HỆ ===== */
+/* KHUNG LIÊN HỆ */
 .contact-box {
     position: fixed;
     bottom: 20px;
@@ -203,6 +202,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/hnc-roblox/HNC_Hub.Su
       💬 Facebook – Nhật Khang
     </a>
     <div class="note" id="scamNote">
+      <p>💰 Thu mua và bán acc Bloxfruit giá hời!</p>
+      <p>⚡ Cày thuê lv và beli</p>
+      <p>📩 Vui lòng ib để được hỗ trợ tốt nhất</p>
       <p><strong>Sợ scam?</strong> Bạn có thể tìm chỗ khác. Bạn sợ, tôi buồn, cả 2 đều tiêu cực.</p>
       <p>– Có thể rep trễ vì bận, xin lỗi vì sự chậm trễ này.</p>
     </div>
@@ -218,16 +220,6 @@ function copyText(btn){
     alert("Đã sao chép!");
 }
 
-/* SAO BĂNG */
-setInterval(() => {
-    const m = document.createElement("div");
-    m.className = "meteor";
-    m.style.left = Math.random() * window.innerWidth + "px";
-    m.style.animationDuration = (1.5 + Math.random() * 2) + "s";
-    document.body.appendChild(m);
-    setTimeout(() => m.remove(), 3000);
-}, 600);
-
 /* CHECK KEY + HIỆU ỨNG */
 const REAL_KEY = "traigaidepthivao";
 function checkKey(){
@@ -239,6 +231,16 @@ function checkKey(){
         msg.innerText = "Sai key rồi 😢";
     }
 }
+
+/* SAO BĂNG BAY CHÉO */
+setInterval(() => {
+    const m = document.createElement("div");
+    m.className = "meteor";
+    m.style.left = Math.random() * window.innerWidth + "px";
+    m.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+    document.body.appendChild(m);
+    setTimeout(() => m.remove(), 3000);
+}, 600);
 
 /* NỀN THEO GIỜ */
 const h = new Date().getHours();
