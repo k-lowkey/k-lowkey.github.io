@@ -5,6 +5,7 @@
 <title>Klowkey Script</title>
 
 <style>
+/* ===== BODY ===== */
 body {
     margin: 0;
     min-height: 100vh;
@@ -15,7 +16,7 @@ body {
     overflow: hidden;
 }
 
-/* SAO NHỎ */
+/* ===== SAO NỀN ===== */
 .star-bg {
     position: fixed;
     inset: 0;
@@ -29,7 +30,7 @@ body {
     z-index: 0;
 }
 
-/* SAO BĂNG */
+/* ===== SAO BĂNG ===== */
 .meteor {
     position: fixed;
     top: -50px;
@@ -50,7 +51,7 @@ body {
     }
 }
 
-/* NỘI DUNG */
+/* ===== CONTENT ===== */
 .content {
     position: relative;
     z-index: 2;
@@ -81,13 +82,46 @@ button {
     border-radius: 10px;
     background: #6366f1;
     color: white;
+    cursor: pointer;
+}
+
+/* ===== FACEBOOK + NOTE ===== */
+.contact-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-align: right;
+    z-index: 9999;
+}
+
+.facebook-link {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: #1877f2;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.facebook-link:hover {
+    text-decoration: underline;
+}
+
+.note {
+    font-size: 13px;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.note strong {
+    color: #ff6b6b;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 MÀN HÌNH KEY -->
+<!-- ===== MÀN HÌNH NHẬP KEY ===== -->
 <div id="lock" style="
 position:fixed;
 inset:0;
@@ -107,24 +141,28 @@ z-index:9999;
 
 <div class="star-bg"></div>
 
+<!-- ===== NỘI DUNG ===== -->
 <div class="content">
 <h2>📜 SCRIPT</h2>
 <div class="box">
 <textarea id="script" rows="4" readonly>
 loadstring(game:HttpGet("https://raw.githubusercontent.com/hnc-roblox/HNC_Hub.Super.Chest/refs/heads/main/ChestBypass.lua"))()
 </textarea>
-<button onclick="copy('script')">📋 Sao chép script</button>
+<button onclick="copyText('script')">📋 Sao chép script</button>
 </div>
 
 <h2>🔗 LINK ỨNG DỤNG</h2>
 <div class="box">
 <input id="link" readonly value="https://www.mediafire.com/file/j229oag2mehfvoo/FluxusZ_VNG_64.apk/file?dkey=kh1hhigze4y&r=659">
-<button onclick="copy('link')">📋 Sao chép link</button>
+<button onclick="copyText('link')">📋 Sao chép link</button>
 </div>
 </div>
+
+<!-- ===== FACEBOOK ===== -->
 <div class="contact-box">
-  <a href="https://www.facebook.com/share/1CmUFZnwPt/"
+  <a href="https://www.facebook.com/profile.php?id=61559875395921"
      target="_blank"
+     rel="noopener noreferrer"
      class="facebook-link">
     Facebook – Nhật Khang
   </a>
@@ -136,14 +174,15 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/hnc-roblox/HNC_Hub.Su
 </div>
 
 <script>
-function copy(id){
-    let el = document.getElementById(id);
+/* COPY */
+function copyText(id){
+    const el = document.getElementById(id);
     el.select();
     document.execCommand("copy");
     alert("Đã sao chép!");
 }
 
-// SAO BĂNG
+/* SAO BĂNG */
 function createMeteor() {
     const m = document.createElement("div");
     m.className = "meteor";
@@ -154,7 +193,7 @@ function createMeteor() {
 }
 setInterval(createMeteor, 400);
 
-// 🔑 CHECK KEY
+/* CHECK KEY */
 const REAL_KEY = "traigaidepthivao";
 function checkKey(){
     const input = document.getElementById("keyInput").value;
@@ -164,7 +203,6 @@ function checkKey(){
         document.getElementById("msg").innerText = "Sai key rồi 😢";
     }
 }
-
 </script>
 
 </body>
