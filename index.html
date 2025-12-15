@@ -2,21 +2,30 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=0.9">
 <title>Klowkey Script</title>
 
 <style>
-/* ===== BODY ===== */
+/* ===== THU NHỎ TRANG ===== */
+html { zoom: 0.9; }
+
 body {
     margin: 0;
     min-height: 100vh;
     font-family: Arial, sans-serif;
     color: white;
     padding: 20px;
-    background: radial-gradient(circle at top, #312e81, #020617 70%);
     overflow: hidden;
+    transition: background 2s ease;
 }
 
-/* ===== SAO NỀN ===== */
+/* ===== NỀN THEO GIỜ ===== */
+body.morning { background: linear-gradient(120deg, #1e3a8a, #38bdf8); }
+body.afternoon { background: linear-gradient(120deg, #0f172a, #4f46e5); }
+body.evening { background: linear-gradient(120deg, #020617, #1e1b4b); }
+body.night { background: linear-gradient(120deg, #020617, #000000); }
+
+/* ===== SAO NHỎ + NHẤP NHÁY ===== */
 .star-bg {
     position: fixed;
     inset: 0;
@@ -26,8 +35,14 @@ body {
         radial-gradient(2px 2px at 40% 80%, #c7d2fe, transparent),
         radial-gradient(1px 1px at 80% 60%, white, transparent),
         radial-gradient(2px 2px at 10% 70%, #a5b4fc, transparent);
+    animation: twinkle 4s ease-in-out infinite alternate;
     opacity: 0.7;
     z-index: 0;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.4; }
+    to { opacity: 0.85; }
 }
 
 /* ===== SAO BĂNG ===== */
@@ -37,29 +52,25 @@ body {
     width: 2px;
     height: 120px;
     background: linear-gradient(white, transparent);
-    opacity: 0.8;
     animation: fall linear forwards;
     z-index: 1;
 }
 
 @keyframes fall {
-    from {
-        transform: translateY(-100px) translateX(0);
-    }
-    to {
-        transform: translateY(110vh) translateX(300px);
-    }
+    from { transform: translateY(-100px) translateX(0); }
+    to { transform: translateY(110vh) translateX(300px); }
 }
 
-/* ===== CONTENT ===== */
+/* ===== NỘI DUNG ===== */
 .content {
     position: relative;
     z-index: 2;
+    max-width: 600px;
 }
 
 .box {
     background: rgba(30,41,59,0.85);
-    padding: 15px;
+    padding: 14px;
     border-radius: 14px;
     margin-bottom: 20px;
     box-shadow: 0 0 25px rgba(99,102,241,0.4);
@@ -85,124 +96,156 @@ button {
     cursor: pointer;
 }
 
-/* ===== FACEBOOK + NOTE ===== */
+/* ===== MÀN NHẬP KEY ===== */
+#lock {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    background: rgba(2,6,23,0.9);
+    z-index: 9999;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#lock.unlock {
+    opacity: 0;
+    transform: scale(1.1);
+    pointer-events: none;
+}
+
+/* ===== KHUNG LIÊN HỆ ===== */
 .contact-box {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    text-align: right;
-    z-index: 9999;
+    z-index: 5;
+}
+
+.contact-frame {
+    background: rgba(2,6,23,0.8);
+    border: 2px solid #1877f2;
+    border-radius: 14px;
+    padding: 10px 12px;
+    box-shadow: 0 0 25px rgba(24,119,242,0.5);
+    text-align: center;
+}
+
+.contact-hint {
+    font-size: 12px;
+    color: #93c5fd;
+    margin-bottom: 6px;
+    animation: hintBlink 1.5s infinite;
+}
+
+@keyframes hintBlink {
+    0% { opacity: .4; }
+    50% { opacity: 1; }
+    100% { opacity: .4; }
 }
 
 .facebook-link {
-    display: inline-block;
-    margin-bottom: 6px;
+    display: block;
+    background: rgba(24,119,242,0.2);
+    padding: 8px;
+    border-radius: 10px;
     color: #1877f2;
-    font-size: 16px;
-    font-weight: 500;
+    font-weight: bold;
     text-decoration: none;
 }
 
-.facebook-link:hover {
-    text-decoration: underline;
-}
-
 .note {
-    font-size: 13px;
+    font-size: 12px;
     color: #ccc;
-    line-height: 1.4;
-}
-
-.note strong {
-    color: #ff6b6b;
+    margin-top: 8px;
+    display: none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== MÀN HÌNH NHẬP KEY ===== -->
-<div id="lock" style="
-position:fixed;
-inset:0;
-background:radial-gradient(circle at top, #312e81, #020617 70%);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:9999;
-">
+<!-- MÀN NHẬP KEY -->
+<div id="lock">
   <div class="box" style="max-width:320px;width:90%;">
     <h3>🔐 Nhập KEY</h3>
-    <input id="keyInput" placeholder="Nhập key ở đây">
+    <input id="keyInput" placeholder="Nhập key">
     <button onclick="checkKey()">Mở khóa</button>
-    <p id="msg" style="color:#f87171;margin-top:8px;"></p>
+    <p id="msg" style="color:#f87171"></p>
   </div>
 </div>
 
 <div class="star-bg"></div>
 
-<!-- ===== NỘI DUNG ===== -->
 <div class="content">
 <h2>📜 SCRIPT</h2>
 <div class="box">
-<textarea id="script" rows="4" readonly>
+<textarea rows="4" readonly>
 loadstring(game:HttpGet("https://raw.githubusercontent.com/hnc-roblox/HNC_Hub.Super.Chest/refs/heads/main/ChestBypass.lua"))()
 </textarea>
-<button onclick="copyText('script')">📋 Sao chép script</button>
+<button onclick="copyText(this)">📋 Sao chép</button>
 </div>
 
 <h2>🔗 LINK ỨNG DỤNG</h2>
 <div class="box">
-<input id="link" readonly value="https://www.mediafire.com/file/j229oag2mehfvoo/FluxusZ_VNG_64.apk/file?dkey=kh1hhigze4y&r=659">
-<button onclick="copyText('link')">📋 Sao chép link</button>
+<input readonly value="https://www.mediafire.com/file/qi5bcd8n2x9rg4d/deltavn.apk/file?dkey=u1gvn6nzuxh&r=1001">
+<button onclick="copyText(this)">📋 Sao chép</button>
 </div>
 </div>
 
-<!-- ===== FACEBOOK ===== -->
 <div class="contact-box">
-  <a href="https://www.facebook.com/profile.php?id=61559875395921"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="facebook-link">
-    Facebook – Nhật Khang
-  </a>
-
-  <div class="note">
-    <p><strong>Sợ scam?</strong> Tìm chỗ khác.</p>
-    <p>Có thể sẽ rep trễ, xin lỗi về sự thiếu sót này.</p>
+  <div class="contact-frame">
+    <div class="contact-hint">⬇️ Nhấn vào đây để ib trực tiếp</div>
+    <a href="https://www.facebook.com/profile.php?id=61559875395921"
+       target="_blank" rel="noopener noreferrer"
+       class="facebook-link">
+      💬 Facebook – Nhật Khang
+    </a>
+    <div class="note" id="scamNote">
+      <p><strong>Sợ scam?</strong> Bạn có thể tìm chỗ khác. Bạn sợ, tôi buồn, cả 2 đều tiêu cực.</p>
+      <p>– Có thể rep trễ vì bận, xin lỗi vì sự chậm trễ này.</p>
+    </div>
   </div>
 </div>
 
 <script>
 /* COPY */
-function copyText(id){
-    const el = document.getElementById(id);
+function copyText(btn){
+    const el = btn.previousElementSibling;
     el.select();
     document.execCommand("copy");
     alert("Đã sao chép!");
 }
 
 /* SAO BĂNG */
-function createMeteor() {
+setInterval(() => {
     const m = document.createElement("div");
     m.className = "meteor";
     m.style.left = Math.random() * window.innerWidth + "px";
     m.style.animationDuration = (1.5 + Math.random() * 2) + "s";
     document.body.appendChild(m);
     setTimeout(() => m.remove(), 3000);
-}
-setInterval(createMeteor, 400);
+}, 600);
 
-/* CHECK KEY */
+/* CHECK KEY + HIỆU ỨNG */
 const REAL_KEY = "traigaidepthivao";
 function checkKey(){
-    const input = document.getElementById("keyInput").value;
-    if(input === REAL_KEY){
-        document.getElementById("lock").style.display = "none";
+    if(keyInput.value === REAL_KEY){
+        lock.classList.add("unlock");
+        document.getElementById("scamNote").style.display = "block";
+        setTimeout(() => lock.style.display = "none", 800);
     } else {
-        document.getElementById("msg").innerText = "Sai key rồi 😢";
+        msg.innerText = "Sai key rồi 😢";
     }
 }
+
+/* NỀN THEO GIỜ */
+const h = new Date().getHours();
+if(h >= 6 && h < 12) document.body.classList.add("morning");
+else if(h >= 12 && h < 17) document.body.classList.add("afternoon");
+else if(h >= 17 && h < 20) document.body.classList.add("evening");
+else document.body.classList.add("night");
 </script>
 
 </body>
