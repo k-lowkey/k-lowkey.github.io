@@ -3,142 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Klowkey Script</title>
+<title>Kita Script</title>
 
 <style>
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    color: white;
-    padding: 20px;
-    overflow: hidden;
-    transition: background 2s ease;
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    color:white;
+    padding:20px;
+    background:linear-gradient(120deg,#020617,#020024);
+    overflow-x:hidden;
 }
 
-/* NỀN THEO GIỜ */
-body.morning { background: linear-gradient(120deg, #1e3a8a, #38bdf8); }
-body.afternoon { background: linear-gradient(120deg, #0f172a, #4f46e5); }
-body.evening { background: linear-gradient(120deg, #020617, #1e1b4b); }
-body.night { background: linear-gradient(120deg, #020617, #000000); }
-
-/* SAO NHỎ NHẤP NHÁY */
-.star-bg {
-    position: fixed;
-    inset: 0;
+/* NỀN SAO */
+.star-bg{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background-image:
-        radial-gradient(1px 1px at 20% 30%, white, transparent),
-        radial-gradient(1px 1px at 70% 20%, white, transparent),
-        radial-gradient(2px 2px at 40% 80%, #c7d2fe, transparent),
-        radial-gradient(1px 1px at 80% 60%, white, transparent),
-        radial-gradient(2px 2px at 10% 70%, #a5b4fc, transparent);
-    animation: twinkle 4s ease-in-out infinite alternate;
-    opacity: 0.7;
-    z-index: 0;
+      radial-gradient(1px 1px at 10% 20%, white, transparent),
+      radial-gradient(1px 1px at 30% 80%, #a5b4fc, transparent),
+      radial-gradient(1px 1px at 60% 40%, #f472b6, transparent),
+      radial-gradient(2px 2px at 80% 60%, #facc15, transparent),
+      radial-gradient(1px 1px at 50% 10%, #22d3ee, transparent);
+    opacity:.7;
+    z-index:-1;
 }
 
-@keyframes twinkle {
-    from { opacity: 0.4; }
-    to { opacity: 0.85; }
+/* SAO RƠI */
+.falling-star{
+    position:fixed;
+    top:-10px;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    animation:fall linear forwards;
+    z-index:0;
 }
-
-/* SAO BĂNG BAY CHÉO VỚI VỆT TÍM NHẠT */
-.meteor {
-    position: fixed;
-    top: -50px;
-    width: 2px;
-    height: 120px;
-    background: linear-gradient(to bottom, rgba(200,180,255,0.8), transparent); /* màu tím nhạt */
-    transform: rotate(45deg); /* bay chéo */
-    animation: fall linear forwards;
-    z-index: 1;
-}
-
-@keyframes fall {
-    from { transform: translateY(-100px) translateX(0) rotate(45deg); }
-    to { transform: translateY(110vh) translateX(300px) rotate(45deg); }
+@keyframes fall{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(110vh);opacity:0;}
 }
 
 /* NỘI DUNG */
-.content {
-    position: relative;
-    z-index: 2;
-    max-width: 600px;
-    margin: 0 auto;
+.content{
+    max-width:650px;
+    margin:auto;
 }
 
-.box {
-    background: rgba(30,41,59,0.85);
-    padding: 14px;
-    border-radius: 14px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 25px rgba(99,102,241,0.4);
+.box{
+    background:rgba(30,41,59,.85);
+    padding:16px;
+    border-radius:14px;
+    margin-bottom:22px;
+    box-shadow:0 0 25px rgba(99,102,241,.4);
 }
 
-textarea, input {
-    width: 100%;
-    background: #020617;
-    color: #22c55e;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 14px;
+textarea,input{
+    width:100%;
+    background:#020617;
+    color:#22c55e;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    font-size:14px;
 }
 
-button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 10px;
-    background: #6366f1;
-    color: white;
-    cursor: pointer;
+button{
+    margin-top:8px;
+    padding:8px 16px;
+    border:none;
+    border-radius:10px;
+    background:#6366f1;
+    color:white;
+    cursor:pointer;
 }
 
-/* KHUNG LIÊN HỆ */
-.contact-box {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 5;
+/* CHỮ PHÁT SÁNG */
+.glow{
+    font-weight:bold;
+    text-shadow:0 0 8px currentColor,0 0 16px currentColor;
+}
+.blue{color:#3b82f6;}
+.yellow{color:#facc15;}
+.purple{color:#a78bfa;}
+
+/* KHUNG SCRIPT GẬP */
+.script-header{
+    cursor:pointer;
+    padding:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:18px;
+}
+.script-content{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .5s ease;
+}
+.script-content.open{
+    max-height:3000px;
+    position:relative;
+    z-index:10;
 }
 
-.contact-frame {
-    background: rgba(2,6,23,0.8);
-    border: 2px solid #1877f2;
-    border-radius: 14px;
-    padding: 10px 12px;
-    box-shadow: 0 0 25px rgba(24,119,242,0.5);
-    text-align: center;
+/* KHUNG LIÊN HỆ – HÌNH CHỮ NHẬT */
+.contact-box{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:5;
+    transition:opacity .3s ease;
 }
 
-.contact-hint {
-    font-size: 12px;
-    color: #93c5fd;
-    margin-bottom: 6px;
-    animation: hintBlink 1.5s infinite;
+.contact-frame{
+    background:rgba(2,6,23,.9);
+    border:2px solid #1877f2;
+    border-radius:10px;        /* ít bo – giống hình chữ nhật */
+    padding:10px 22px;
+    min-width:280px;           /* QUAN TRỌNG: không cho chữ gãy */
+    box-shadow:0 0 25px rgba(24,119,242,.5);
+    text-align:center;
 }
 
-@keyframes hintBlink {
-    0% { opacity: .4; }
-    50% { opacity: 1; }
-    100% { opacity: .4; }
+.facebook-link{
+    display:block;
+    white-space:nowrap;        /* KHÔNG XUỐNG DÒNG */
+    background:rgba(24,119,242,.2);
+    padding:10px;
+    border-radius:8px;
+    color:#1877f2;
+    font-weight:bold;
+    text-decoration:none;
 }
 
-.facebook-link {
-    display: block;
-    background: rgba(24,119,242,0.2);
-    padding: 8px;
-    border-radius: 10px;
-    color: #1877f2;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.note {
-    font-size: 12px;
-    color: #ccc;
-    margin-top: 8px;
+.note{
+    font-size:12px;
+    color:#ccc;
+    margin-top:8px;
 }
 </style>
 </head>
@@ -148,41 +154,62 @@ button {
 <div class="star-bg"></div>
 
 <div class="content">
-<h2>📜 SCRIPT</h2>
+
+<h2 class="glow purple">📦 LINK CLIENT</h2>
 <div class="box">
-<textarea rows="4" readonly>
-loadstring(game:HttpGet("https://raw.githubusercontent.com/hnc-roblox/HNC_Hub.Super.Chest/refs/heads/main/ChestBypass.lua"))()
-</textarea>
-<button onclick="copyText(this)">📋 Sao chép</button>
+  <p class="glow">Link client Delta</p>
+  <input readonly value="https://www.mediafire.com/file/qi5bcd8n2x9rg4d/deltavn.apk/file?dkey=u1gvn6nzuxh&r=1001">
+  <button onclick="copyText(this)">📋 Sao chép</button>
 </div>
 
-<h2>🔗 LINK ỨNG DỤNG</h2>
 <div class="box">
-<input readonly value="https://www.mediafire.com/file/qi5bcd8n2x9rg4d/deltavn.apk/file?dkey=u1gvn6nzuxh&r=1001">
-<button onclick="copyText(this)">📋 Sao chép</button>
+  <div class="script-header glow purple" onclick="toggleScript()">
+    📜 TỔNG HỢP CÁC SCRIPT
+    <span id="arrow">▼</span>
+  </div>
+
+  <div id="scriptContent" class="script-content">
+
+    <div class="box">
+      <p class="glow blue">Script Trẩu Roblox v5</p>
+      <textarea rows="3" readonly>
+loadstring(game:HttpGet("https://raw.githubusercontent.com/trungdao2k4/trauroblox/refs/heads/main/traurobloxv5.lua"))()
+      </textarea>
+      <button onclick="copyText(this)">📋 Sao chép</button>
+    </div>
+
+    <div class="box">
+      <p class="glow yellow">Script Hoàng Long</p>
+      <textarea rows="4" readonly>
+getgenv().Team = "Marines"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/longdwieh/HoangLong-script/refs/heads/main/HoangLongHub.lua.txt"))()
+      </textarea>
+      <button onclick="copyText(this)">📋 Sao chép</button>
+    </div>
+
+  </div>
 </div>
+
 </div>
 
 <div class="contact-box">
   <div class="contact-frame">
-    <div class="contact-hint">⬇️ Nhấn vào đây để ib trực tiếp</div>
     <a href="https://www.facebook.com/profile.php?id=61559875395921"
-       target="_blank" rel="noopener noreferrer"
+       target="_blank"
        class="facebook-link">
-      💬 Facebook – Nhật Khang
+       💬 FACEBOOK – Kita Cày Thuê
     </a>
-    <div class="note" id="scamNote">
-      <p>💰 Thu mua và bán acc Bloxfruit giá hời!</p>
-      <p>⚡ Cày thuê lv và beli</p>
-      <p>📩 Vui lòng ib để được hỗ trợ tốt nhất</p>
-      <p><strong>Sợ scam?</strong> Bạn có thể tìm chỗ khác. Bạn sợ, tôi buồn, cả 2 đều tiêu cực.</p>
-      <p>– Có thể rep trễ vì bận, xin lỗi vì sự chậm trễ này.</p>
-    </div>
+    <div class="note">
+  <div class="note">
+  💰 Thu mua & bán acc Bloxfruit giá hời<br>
+  ⚡ Cày thuê lv & beli<br>
+  <strong>Sợ scam?</strong> Bạn có thể tìm chỗ khác. Bạn sợ, tôi buồn, cả 2 đều tiêu cực.<br>
+  – Có thể rep trễ vì bận, xin lỗi vì sự chậm trễ này.
+</div>
   </div>
 </div>
 
 <script>
-/* COPY */
 function copyText(btn){
     const el = btn.previousElementSibling;
     el.select();
@@ -190,22 +217,35 @@ function copyText(btn){
     alert("Đã sao chép!");
 }
 
-/* SAO BĂNG BAY CHÉO */
-setInterval(() => {
-    const m = document.createElement("div");
-    m.className = "meteor";
-    m.style.left = Math.random() * window.innerWidth + "px";
-    m.style.animationDuration = (1.5 + Math.random() * 2) + "s";
-    document.body.appendChild(m);
-    setTimeout(() => m.remove(), 3000);
-}, 600);
+function toggleScript(){
+    const box = document.getElementById("scriptContent");
+    const arrow = document.getElementById("arrow");
+    const contact = document.querySelector(".contact-box");
 
-/* NỀN THEO GIỜ */
-const h = new Date().getHours();
-if(h >= 6 && h < 12) document.body.classList.add("morning");
-else if(h >= 12 && h < 17) document.body.classList.add("afternoon");
-else if(h >= 17 && h < 20) document.body.classList.add("evening");
-else document.body.classList.add("night");
+    box.classList.toggle("open");
+
+    if(box.classList.contains("open")){
+        arrow.innerText = "▲";
+        contact.style.opacity = "0.25";
+        contact.style.pointerEvents = "none";
+    }else{
+        arrow.innerText = "▼";
+        contact.style.opacity = "1";
+        contact.style.pointerEvents = "auto";
+    }
+}
+
+/* SAO RƠI NHIỀU MÀU */
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="falling-star";
+  const colors=["#fff","#a5b4fc","#f472b6","#22d3ee","#facc15"];
+  s.style.background=colors[Math.floor(Math.random()*colors.length)];
+  s.style.left=Math.random()*window.innerWidth+"px";
+  s.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),9000);
+},300);
 </script>
 
 </body>
