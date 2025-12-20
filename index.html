@@ -15,13 +15,10 @@ body{
     overflow-x:hidden;
 }
 
-/* NỀN SAO */
+/* NỀN SAO TĨNH */
 .star-bg{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    inset:0;
     background-image:
       radial-gradient(1px 1px at 10% 20%, white, transparent),
       radial-gradient(1px 1px at 30% 80%, #a5b4fc, transparent),
@@ -32,16 +29,28 @@ body{
     z-index:-1;
 }
 
-/* SAO RƠI */
+/* SAO RƠI CHẬM + PHÁT SÁNG */
 .falling-star{
     position:fixed;
     top:-10px;
+
+    /* SAO NHỎ */
     width:2px;
     height:2px;
     border-radius:50%;
+
     animation:fall linear forwards;
     z-index:0;
+
+    background: currentColor;
+
+    /* PHÁT SÁNG MẠNH HƠN */
+    box-shadow:
+      0 0 3px currentColor,
+      0 0 8px currentColor,
+      0 0 14px currentColor;
 }
+
 @keyframes fall{
     from{transform:translateY(0);opacity:1;}
     to{transform:translateY(110vh);opacity:0;}
@@ -110,7 +119,7 @@ button{
     z-index:10;
 }
 
-/* KHUNG LIÊN HỆ – HÌNH CHỮ NHẬT */
+/* KHUNG LIÊN HỆ */
 .contact-box{
     position:fixed;
     bottom:20px;
@@ -123,16 +132,16 @@ button{
 .contact-frame{
     background:rgba(2,6,23,.9);
     border:2px solid #1877f2;
-    border-radius:10px;        /* ít bo – giống hình chữ nhật */
+    border-radius:10px;
     padding:10px 22px;
-    min-width:280px;           /* QUAN TRỌNG: không cho chữ gãy */
+    min-width:280px;
     box-shadow:0 0 25px rgba(24,119,242,.5);
     text-align:center;
 }
 
 .facebook-link{
     display:block;
-    white-space:nowrap;        /* KHÔNG XUỐNG DÒNG */
+    white-space:nowrap;
     background:rgba(24,119,242,.2);
     padding:10px;
     border-radius:8px;
@@ -200,12 +209,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/longdwieh/HoangLong-s
        💬 FACEBOOK – Kita Cày Thuê
     </a>
     <div class="note">
-  <div class="note">
-  💰 Thu mua & bán acc Bloxfruit giá hời<br>
-  ⚡ Cày thuê lv & beli<br>
-  <strong>Sợ scam?</strong> Bạn có thể tìm chỗ khác. Bạn sợ, tôi buồn, cả 2 đều tiêu cực.<br>
-  – Có thể rep trễ vì bận, xin lỗi vì sự chậm trễ này.
-</div>
+      💰 Thu mua & bán acc Bloxfruit giá hời<br>
+      ⚡ Cày thuê lv & beli<br>
+      <strong>Sợ scam?</strong> Bạn có thể tìm chỗ khác. Bạn sợ, tôi buồn, cả 2 đều tiêu cực.<br>
+      – Có thể rep trễ vì bận, xin lỗi vì sự chậm trễ này.
+    </div>
   </div>
 </div>
 
@@ -218,34 +226,34 @@ function copyText(btn){
 }
 
 function toggleScript(){
-    const box = document.getElementById("scriptContent");
-    const arrow = document.getElementById("arrow");
-    const contact = document.querySelector(".contact-box");
+    const box=document.getElementById("scriptContent");
+    const arrow=document.getElementById("arrow");
+    const contact=document.querySelector(".contact-box");
 
     box.classList.toggle("open");
 
     if(box.classList.contains("open")){
-        arrow.innerText = "▲";
-        contact.style.opacity = "0.25";
-        contact.style.pointerEvents = "none";
+        arrow.innerText="▲";
+        contact.style.opacity="0.25";
+        contact.style.pointerEvents="none";
     }else{
-        arrow.innerText = "▼";
-        contact.style.opacity = "1";
-        contact.style.pointerEvents = "auto";
+        arrow.innerText="▼";
+        contact.style.opacity="1";
+        contact.style.pointerEvents="auto";
     }
 }
 
-/* SAO RƠI NHIỀU MÀU */
+/* TẠO SAO RƠI CHẬM – PHÁT SÁNG */
 setInterval(()=>{
   const s=document.createElement("div");
   s.className="falling-star";
-  const colors=["#fff","#a5b4fc","#f472b6","#22d3ee","#facc15"];
-  s.style.background=colors[Math.floor(Math.random()*colors.length)];
+  const colors=["#ffffff","#a5b4fc","#f472b6","#22d3ee","#facc15"];
+  s.style.color=colors[Math.floor(Math.random()*colors.length)];
   s.style.left=Math.random()*window.innerWidth+"px";
-  s.style.animationDuration=(4+Math.random()*4)+"s";
+  s.style.animationDuration=(8+Math.random()*6)+"s";
   document.body.appendChild(s);
-  setTimeout(()=>s.remove(),9000);
-},300);
+  setTimeout(()=>s.remove(),12000);
+},250);
 </script>
 
 </body>
